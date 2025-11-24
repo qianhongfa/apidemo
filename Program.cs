@@ -13,7 +13,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/", () => "Hello World!")
+app.MapGet("/", () => "Hello World!钱洪法")
    .WithName("Home");
 
 var summaries = new[]
@@ -31,6 +31,7 @@ app.MapGet("/weatherforecast", () =>
         )).ToArray();
 
     return forecast;
+
 })
 .WithName("GetWeatherForecast");
 
