@@ -1,18 +1,20 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// Register services
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Enable OpenAPI/Swagger in development (project provides AddOpenApi/MapOpenApi)
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+
+app.MapGet("/", () => "Hello World!")
+   .WithName("Home");
 
 var summaries = new[]
 {
@@ -21,14 +23,13 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
+    var forecast = Enumerable.Range(1, 5).Select(index =>
+        new WeatherForecast(
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             Random.Shared.Next(-20, 55),
             summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
+        )).ToArray();
+
     return forecast;
 })
 .WithName("GetWeatherForecast");
