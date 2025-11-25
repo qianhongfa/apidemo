@@ -13,7 +13,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/", () => "Hello World!钱洪法")
+app.MapGet("/", () => "Hello World!钱洪法 中国无锡")
    .WithName("Home");
 
 var summaries = new[]
